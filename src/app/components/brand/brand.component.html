@@ -1,0 +1,12 @@
+<div class="mt-3 mb-3">
+  <label for="filterText" class="form-label">Marka Ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText">
+</div>
+<ul class="list-group">
+    <li class="list-group-item list-group-item-primary" (click)="setDefaultBrandItems()" routerLink="">Brands</li>
+  <li (click)="setCurrentBrand(brand)" *ngFor="let brand of brands | brandPipe:filterText" 
+  routerLink="/cars/brand/{{brand.id}}"
+  [class]="getCurrentBrandClass(brand)">
+    {{ brand.brandName }}
+  </li>
+</ul>

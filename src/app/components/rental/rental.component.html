@@ -1,0 +1,146 @@
+
+<p-stepper>
+    <p-stepperPanel header="Tarih Seçimi">
+        <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+            <div class="flex flex-column h-12rem text-center ">
+                <div
+                    class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-3">
+                                <p-calendar [showIcon]="true" inputId="buttondisplay" [showOnFocus]="true"
+                                [(ngModel)]="selectedDate1"
+                                (onSelect)="addDisabledDate()"
+                                     [minDate]="minRentalDate" [disabledDates]="disabledDates" />
+                        </div>
+                        <div class="col-md-3">
+                                <p-calendar [showIcon]="true" inputId="buttondisplay" [showOnFocus]="true"
+                                [(ngModel)]="selectedDate2"
+                                     [minDate]="minReturnDate" [disabledDates]="disabledDates" />
+                        </div>
+                    </div>
+                    Aracı kiralamak istediğiniz tarihi giriniz.
+                </div>
+            </div>
+            <div class="d-flex pt-4 justify-content-end">
+                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()"></p-button>
+            </div>
+            
+        </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Ödeme Bilgileri">
+        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+            let-index="index">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="grid-column">
+                        <label for="cartNumber">Kart Numarası</label>
+                    </div>
+                    <div class="grid-column">
+                        <input pInputText id="cartNumber" aria-describedby="username-help" [(ngModel)]="cartNumber" />
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="grid-column">
+                        <label for="expirationdate">Son Kullanma Tarihi</label>
+                    </div>
+                    <div class="grid-column">
+                        <input pInputText id="expirationdate" aria-describedby="username-help" [(ngModel)]="expirationdate" />
+                    </div>
+                    
+                </div>
+                <div class="col-md-4">
+
+                    <div class="grid-column">
+                        <label for="cvv">CVV</label>
+                    </div>
+                    <div class="grid-column">
+                        <input pInputText id="cvv" aria-describedby="username-help" [(ngModel)]="cvv" />
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex pt-4 justify-content-between">
+                <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+
+            </div>
+        </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Siparişi Tamamla">
+        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+
+
+            <div class="alert alert-primary text-center" role="alert">
+                Kiralanmak istenen tarihler
+            </div>
+
+
+
+            <div class="row justify-content-center">
+                <div class="col-md-3">
+                        <p-calendar [showIcon]="true" inputId="buttondisplay" [showOnFocus]="true"
+                        [disabled]="true"
+                        [(ngModel)]="selectedDate1"
+                             [minDate]="minRentalDate" [disabledDates]="disabledDates" />
+                </div>
+                <div class="col-md-3">
+                        <p-calendar [showIcon]="true" inputId="buttondisplay" [showOnFocus]="true"
+                        [(ngModel)]="selectedDate2"
+                        [disabled]="true"
+                             [minDate]="minReturnDate" [disabledDates]="disabledDates" />
+                </div>
+            </div>
+
+
+
+            <div class="alert alert-primary text-center mt-5" role="alert">
+                Kart Bilgileri
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="grid-column">
+                        <label for="cartNumber">Kart Numarası</label>
+                    </div>
+                    <div class="grid-column">
+                        <input pInputText id="cartNumber" aria-describedby="username-help" [(ngModel)]="cartNumber" [disabled]="true"  [value]="cartNumber" />
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="grid-column">
+                        <label for="expirationdate">Son Kullanma Tarihi</label>
+                    </div>
+                    <div class="grid-column">
+                        <input pInputText id="expirationdate" aria-describedby="username-help" [disabled]="true" [value]="expirationdate" [(ngModel)]="expirationdate" />
+                    </div>
+                    
+                </div>
+                <div class="col-md-4">
+
+                    <div class="grid-column">
+                        <label for="cvv">CVV</label>
+                    </div>
+                    <div class="grid-column">
+                        <input pInputText id="cvv" aria-describedby="username-help"  [disabled]="true" [value]="cvv" [(ngModel)]="cvv" />
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="d-flex justify-content-center mt-5">
+                <button class="btn btn-primary" (click)="payRental()"> Ödeme yap</button>
+            </div>
+            <div class="flex pt-4 justify-content-start">
+                <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+            </div>
+        </ng-template>
+    </p-stepperPanel>
+
+</p-stepper>

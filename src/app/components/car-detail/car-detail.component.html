@@ -1,0 +1,83 @@
+<div id="carouselExampleDark" class="carousel carousel-dark slide">
+  <div class="carousel-indicators">
+    <button
+      *ngIf="carDetail.images.length == 0"
+      type="button"
+      data-bs-target="#carouselExampleDark"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+
+    <button
+      *ngFor="let image of carDetail.images; let i = index; first as isFirst"
+      type="button"
+      [attr.data-bs-target]="'#carouselExampleDark'"
+      [attr.data-bs-slide-to]="i"
+      [ngClass]="{ active: isFirst }"
+    ></button>
+  </div>
+
+  <div class="carousel-inner" *ngIf="carDetail.images.length == 0">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="./assets/images/default.png" class="d-block w-50 h-50 mx-auto" />
+      <div class="carousel-caption d-none d-md-block"></div>
+    </div>
+  </div>
+  <div class="carousel-inner ">
+    <div *ngFor="let image of carDetail.images; first as isFirst">
+      <div
+        [ngClass]="isFirst ? 'carousel-item active' : 'carousel-item'"
+        data-bs-interval="10000"
+      >
+        <img [src]="setImage(image.imagePath)" class="d-block  mx-auto object-fit-scale" />
+        <div class="carousel-caption d-none d-md-block"></div>
+      </div>
+    </div>
+  </div>
+
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleDark"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleDark"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<ul class="list-group mb-3">
+  <li class="list-group-item">
+    <span class="fw-bold">Araç Numarası: </span>
+    <span>{{ carDetail.carId }}</span>
+  </li>
+  <li class="list-group-item">
+    <span class="fw-bold">Araç Markası: </span>
+    <span>{{ carDetail.brandName }}</span>
+  </li>
+  <li class="list-group-item">
+    <span class="fw-bold">Araç Rengi: </span>
+    <span>{{ carDetail.colorName }}</span>
+  </li>
+  <li class="list-group-item">
+    <span class="fw-bold">Araç Ücreti: </span>
+    <span>{{ carDetail.dailyPrice }}</span>
+  </li>
+</ul>
+
+<div class="d-flex btn btn-primary col-sm-6 mx-auto justify-content-center"routerLink="rental/{{carDetail.carId}}" >
+  <span>
+    Aracı Kirala
+  </span>
+</div>

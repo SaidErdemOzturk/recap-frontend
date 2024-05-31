@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-sm-4 mb-3 mt-3">
+      <select  class="form-select" aria-label="Default select example" [(ngModel)]="selectedBrand">
+        <option [ngValue]="null" selected >Bir marka seç</option>
+        <option *ngFor="let brand of brands let i = index;" [ngValue]="brand">{{brand.brandName}}</option>
+      </select>
+
+  </div>
+
+  <div class="col-sm-4 mb-3 mt-3">
+    <select class="form-select " aria-label="Default select example" [(ngModel)]="selectedColor">
+      <option selected [ngValue]="null">Bir renk seç</option>
+      <option *ngFor="let color of colors let i = index;" [ngValue]="color">{{color.colorName}}</option>
+    </select>
+  </div>
+  <div class="col-sm-2 mb-3 mt-3">
+    <button (click)="listCars(selectedBrand,selectedColor)" type="button" class="btn btn-primary">Listele</button>
+  </div>
+
+  <div class="col-sm-2 mb-3 mt-3">
+    <button (click)="getCars()" type="button" class="btn btn-primary">Temizle</button>
+  </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-sm-4 mb-3 mb-sm-0"  *ngFor="let car of cars">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{car.brand.brandName}}</h5>
+          <img [src]="setImage(car.imagePath)" class="card-img-top">
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text text-center">{{car.dailyPrice}}</p>
+          <div class="d-grid btn btn-primary" routerLink="cars/cardetail/{{car.carId}}" >
+            Aracı incele
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
