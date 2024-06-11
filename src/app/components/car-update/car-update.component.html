@@ -1,0 +1,68 @@
+<form [formGroup]="carUpdateFormGroup">
+    <div class="mb-3">
+        <label for="brandId">Marka Seçiniz</label>
+        <div class="form-group" formGroupName="brand">
+            <select class="form-select" aria-label="Default select example" formControlName="brandId">
+                <option *ngFor="let brand of brands" [value]="brand.brandId">{{brand.brandName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="colorId">Renk Seçiniz</label>
+        <div class="form-group" formGroupName="color">
+            <select class="form-select" aria-label="Default select example" formControlName="colorId">
+                <option *ngFor="let color of colors" [value]="color.colorId">{{color.colorName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="modelYear">Model Yılı</label>
+        <div class="form-group">
+            <input type="text" id="modelYear" class="form-control" formControlName="modelYear"
+                placeholder="Marka Adı" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="dailyPrice">Günlük Ücret</label>
+        <div class="form-group">
+            <input type="text" id="dailyPrice" class="form-control" formControlName="dailyPrice"
+                placeholder="Marka Adı" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="description">Açıklama</label>
+        <div class="form-group">
+            <input type="text" id="description" class="form-control" formControlName="description"
+                placeholder="Marka Adı" />
+        </div>
+    </div>
+
+    <div>
+        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25 " alt="...">
+        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25 " alt="...">
+        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25 " alt="...">
+        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25" alt="...">
+
+    </div>
+    <button class="btn btn-primary" (click)="updateCar()"> Düzenle</button>
+
+</form>
+
+
+
+<div class="card">
+    <p-galleria 
+        [value]="images" 
+        [responsiveOptions]="responsiveOptions" 
+        [containerStyle]="{ 'max-width': '640px' }" 
+        [numVisible]="5">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" />
+                </div>
+            </ng-template>
+    </p-galleria>
+</div>

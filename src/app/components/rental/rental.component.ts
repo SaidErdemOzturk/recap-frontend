@@ -17,7 +17,7 @@ export class RentalComponent implements OnInit {
   rentals: Rental[] = []
   minRentalDate: Date | undefined;
   minReturnDate: Date | undefined;
-  selectedRentalDate:Date
+  selectedRentalDate: Date
   today = new Date();
   month = this.today.getMonth();
   year = this.today.getFullYear();
@@ -25,14 +25,14 @@ export class RentalComponent implements OnInit {
   disabledDates: Date[] = []
   rentalDate: Date
   returnDate: Date
-  tempDate:Date
-  cartNumber:string
-  expirationdate:string
-  cvv:string
-  creditCart:CreditCart={cartNumber:"",cvv:"",expirationDate:""}
-  selectedDate1:Date
-  selectedDate2:Date
-  carId:number
+  tempDate: Date
+  cartNumber: string=""
+  expirationdate: string=""
+  cvv: string=""
+  creditCart: CreditCart = { cartNumber: "", cvv: "", expirationDate: "" }
+  selectedDate1: Date
+  selectedDate2: Date
+  carId: number
 
 
   //currentDateAndTime = this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
@@ -50,8 +50,8 @@ export class RentalComponent implements OnInit {
   constructor(private rentalService: RentalService,
     private _formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private creditCartService:CreditCartService,
-    private toastrService:ToastrService
+    private creditCartService: CreditCartService,
+    private toastrService: ToastrService
   ) { }
 
   // Örnek bir tarih
@@ -63,40 +63,48 @@ export class RentalComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       if (params["carId"]) {
         this.getRentalsByCarId(params["carId"])
-        this.carId=params["carId"]
+        this.carId = params["carId"]
       }
     })
-    this.minRentalDate=this.minReturnDate
+    this.minRentalDate = this.minReturnDate
     this.minRentalDate = new Date();
     this.minRentalDate.setMonth(this.month);
     this.minRentalDate.setFullYear(this.year);
     this.minRentalDate.setDate(this.day)
   }
-  addDisabledDate(){
-    let date=new Date(this.selectedDate1)
-    date.setDate(date.getDate()+1)
-    this.minReturnDate=new Date(date)
+  addDisabledDate() {
+    let date = new Date(this.selectedDate1)
+    date.setDate(date.getDate() + 1)
+    this.minReturnDate = new Date(date)
   }
 
-  show(){
+  show() {
     console.log("buraya girdi");
   }
 
-  payRental(){
-    console.log(this.cartNumber)
-    this.creditCart.cartNumber=this.cartNumber
-    this.creditCart.expirationDate=this.expirationdate
-    this.creditCart.cvv=this.cvv
-    this.creditCartService.payWithCreditCart(this.creditCart).subscribe(response=>{
-      if(response.success){
-      this.rentalCar()
-      }else{
+  payRental() {
+    this.creditCart.cartNumber = this.cartNumber
+    this.creditCart.expirationDate = this.expirationdate
+    this.creditCart.cvv = this.cvv
+    this.creditCartService.payWithCreditCart(this.creditCart).subscribe(response => {
+      if (response.success) {
+        this.rentalCar()
+      } else {
         this.toastrService.error(response.message)
       }
-    })
+    }, responseError => {
+      console.log(responseError.error)
+
+      if(responseError.error.Errors.length>0){
+        for (let i = 0; i < responseError.error.Errors.length; i++) {
+        this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Doğrulama Hatası")
+        }
+
+      }
+    });
   }
 
-  rentalCar(){
+  rentalCar() {
     let rental: Rental = {
       id: 0,
       carId: this.carId,
@@ -104,7 +112,7 @@ export class RentalComponent implements OnInit {
       rentDate: this.selectedDate1,
       returnDate: this.selectedDate2
     };
-    this.rentalService.rentalCar(rental).subscribe(response=>{
+    this.rentalService.rentalCar(rental).subscribe(response => {
       this.toastrService.success(response.message)
     })
   }
@@ -118,11 +126,10 @@ export class RentalComponent implements OnInit {
         this.disabledDates.push(new Date(element.rentDate))
         while (this.disabledDates[this.disabledDates.length - 1].getDate() != this.returnDate.getDate()) {
           this.tempDate = new Date(this.disabledDates[this.disabledDates.length - 1])
-          this.tempDate.setDate(this.tempDate.getDate()+1)
+          this.tempDate.setDate(this.tempDate.getDate() + 1)
           this.disabledDates.push(new Date(this.tempDate))
         }
       });
-      //this.rentals.filter(r=>r.returnDate.getTime()>Date.now())
     })
   }
 }

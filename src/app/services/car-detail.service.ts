@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { CarDetailDto } from '../models/carDetailDto';
+import { CarDetailWithImagesDto } from '../models/carDetailWithImagesDto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class CarDetailService {
   constructor(private httpClient:HttpClient) {
    }
 
-   getCarDetail(carId:number):Observable<SingleResponseModel<CarDetailDto>>{
+   getCarDetail(carId:number):Observable<SingleResponseModel<CarDetailWithImagesDto>>{
     let newPath=this.apiUrl+"getcarwithdetailbycarid?id="+carId
-    return this.httpClient.get<SingleResponseModel<CarDetailDto>>(newPath)
+    return this.httpClient.get<SingleResponseModel<CarDetailWithImagesDto>>(newPath)
    }
 }

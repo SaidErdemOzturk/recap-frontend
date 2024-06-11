@@ -9,7 +9,7 @@ import { BrandService } from '../../services/brand.service';
 })
 export class BrandComponent implements OnInit {
 
-  currentBrand:Brand ={id:0,brandName:""}
+  currentBrand:Brand ={brandId:0,brandName:""}
   brands:Brand[] = []
   filterText:string=""
 
@@ -26,7 +26,7 @@ export class BrandComponent implements OnInit {
   }
   setCurrentBrand(brand:Brand){
     if(this.currentBrand==brand){
-      this.currentBrand={id:0,brandName:""}
+      this.currentBrand={brandId:0,brandName:""}
     }else{
       this.currentBrand=brand
     }
@@ -40,7 +40,7 @@ export class BrandComponent implements OnInit {
     }
   }
   setDefaultBrandItems(){
-    this.currentBrand={id:0,brandName:""}
+    this.currentBrand={brandId:0,brandName:""}
   }
 
 }

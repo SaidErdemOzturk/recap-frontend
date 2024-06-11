@@ -1,9 +1,13 @@
+import { Brand } from "./brand";
 import { CarImage } from "./carImage";
+import { Color } from "./color";
 
 export interface CarDetailDto{
     carId:number;
-    brandName:string;
-    colorName:string;
+    brand:Brand;
+    color:Color;
     dailyPrice:number;
-    images:CarImage[];
+    imagePath:string;
+    description:string;
+    modelYear:number;
 }

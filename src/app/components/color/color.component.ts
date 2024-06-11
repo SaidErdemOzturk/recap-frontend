@@ -9,7 +9,7 @@ import { ColorService } from '../../services/color.service';
 })
 export class ColorComponent implements OnInit{
 
-  currentColor:Color ={id:0,colorName:""}
+  currentColor:Color ={colorId:0,colorName:""}
   colors:Color[]=[]
   filterText=""
 
@@ -29,7 +29,7 @@ export class ColorComponent implements OnInit{
     this.currentColor=color
   }
   setDefaultColorItems(){
-    this.currentColor={id:0,colorName:""}
+    this.currentColor={colorId:0,colorName:""}
   }
 
   getCurrentColorClass(color:Color){

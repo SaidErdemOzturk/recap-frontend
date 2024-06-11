@@ -1,0 +1,11 @@
+
+
+  <form [formGroup]="colorAddFormGroup">
+    <div class="mb-3">
+        <label for="colorName">Renk adı</label>
+        <div class="form-group">
+            <input type="text" id="colorName" class="form-control" formControlName="colorName" placeholder="Renk Adı"/>
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="add()"> Ekle</button>
+  </form> 

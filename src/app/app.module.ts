@@ -23,6 +23,12 @@ import { StepperModule } from 'primeng/stepper';
 import { FloatLabelModule } from 'primeng/floatlabel';
 
 import { ToastrModule } from 'ngx-toastr';
+import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { ColorAddComponent } from './components/color-add/color-add.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
+
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
   declarations: [
@@ -36,6 +42,10 @@ import { ToastrModule } from 'ngx-toastr';
     CarDetailComponent,
     ColorPipePipe,
     BrandPipePipe,
+    BrandAddComponent,
+    ColorAddComponent,
+    CarAddComponent,
+    CarUpdateComponent,
 
   ],
   imports: [
@@ -50,6 +60,7 @@ import { ToastrModule } from 'ngx-toastr';
     CalendarModule,
     StepperModule,
     FloatLabelModule,
+    GalleriaModule,
     ToastrModule.forRoot({
       positionClass:"toast-bottom-right",
       timeOut:5000,

@@ -1,0 +1,42 @@
+<form [formGroup]="carAddFormGroup">
+    <div class="mb-3">
+        <label for="brandId">Marka Seçiniz</label>
+        <div class="form-group">
+            <select class="form-select" aria-label="Default select example" formControlName="brandId">
+                <option selected>Bir Renk Seç</option>
+                <option *ngFor="let brand of brands"  id="brandId"  [value]="brand.brandId">{{brand.brandName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="colorId">Renk Seçiniz</label>
+        <div class="form-group">
+            <select class="form-select" aria-label="Default select example" formControlName="colorId">
+                <option selected>Bir Renk Seç</option>
+                <option *ngFor="let color of colors"  id="colorId"  [value]="color.colorId">{{color.colorName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="modelYear">Model Yılı</label>
+        <div class="form-group">
+            <input type="text" id="modelYear" class="form-control" formControlName="modelYear"
+                placeholder="Marka Adı" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="dailyPrice">Günlük Ücret</label>
+        <div class="form-group">
+            <input type="text" id="dailyPrice" class="form-control" formControlName="dailyPrice"
+                placeholder="Marka Adı" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="description">Açıklama</label>
+        <div class="form-group">
+            <input type="text" id="description" class="form-control" formControlName="description"
+                placeholder="Marka Adı" />
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="add()"> Ekle</button>
+</form>

@@ -6,6 +6,7 @@ import { Brand } from '../../models/brand';
 import { Color } from '../../models/color';
 import { ColorService } from '../../services/color.service';
 import { BrandService } from '../../services/brand.service';
+import { CarDetailDto } from '../../models/carDetailDto';
 
 @Component({
   selector: 'app-car',
@@ -15,11 +16,11 @@ import { BrandService } from '../../services/brand.service';
 export class CarComponent implements OnInit {
   defaultImagePath="assets/images/default.png"
   localhostImagePath="http://localhost:5197/Uploads/Images/";
-  cars:Car[]=[]
+  carsDto:CarDetailDto[]=[]
   brands:Brand[]=[]
   colors:Color[]=[]
-  selectedBrand:Brand={brandName:"",id:0}
-  selectedColor:Color={colorName:"",id:0}
+  selectedBrand:Brand={brandName:"",brandId:0}
+  selectedColor:Color={colorName:"",colorId:0}
 
   constructor(private carService:CarService,
     private activatedRoute:ActivatedRoute,
@@ -51,8 +52,8 @@ export class CarComponent implements OnInit {
   }
 
   getCars(){
-    this.carService.getCars().subscribe(response=>{
-      this.cars=response.data
+    this.carService.getCarsDto().subscribe(response=>{
+      this.carsDto=response.data
     })
   }
   getBrands(){
@@ -68,13 +69,13 @@ export class CarComponent implements OnInit {
 
   getCarsByBrand(brandId:number){
     this.carService.getCarsByBrand(brandId).subscribe(response=>{
-      this.cars=response.data;
+      this.carsDto=response.data;
     })
   }
 
   getCarsByColor(colorId:number){
     this.carService.getCarsByColor(colorId).subscribe(response=>{
-      this.cars=response.data;
+      this.carsDto=response.data;
     })
   }
   setSelectedBrand(){
@@ -87,7 +88,7 @@ export class CarComponent implements OnInit {
   }
 
   listCars(brand:Brand,color:Color){
-    this.cars=this.cars.filter(c=>c.brand.id==brand.id&&c.color.id==color.id)
-    console.log(this.cars)
+    this.carsDto=this.carsDto.filter(c=>c.brand.brandId==brand.brandId&&c.color.colorId==color.colorId)
+    console.log(this.carsDto)
   }
 }
