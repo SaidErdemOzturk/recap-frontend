@@ -37,32 +37,22 @@
         </div>
     </div>
 
-    <div>
-        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25 " alt="...">
-        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25 " alt="...">
-        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25 " alt="...">
-        <img src="./assets/images/default.png" class="rounded border mx-2 mb-2 h-25 w-25" alt="...">
-
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end gap-2">
+                <p-fileUpload mode="basic" chooseIcon="pi pi-plus" accept="image/*" maxFileSize="1000000"
+                     (onSelect)="addImage($event)"  [auto]="true" (onInput)="resetFileInput($event)"/>
+                <p-fileUpload mode="basic" chooseIcon="pi pi-pencil" accept="image/*" maxFileSize="1000000"
+                    (onSelect)="updateImage($event)" [auto]="true"/>
+                <p-button icon="pi pi-times" severity="danger" (click)="deleteImage()"></p-button>
+            </div>
+        </div>
     </div>
+
+    <app-carousel [carDetail]="carDetail"></app-carousel>
+
     <button class="btn btn-primary" (click)="updateCar()"> Düzenle</button>
 
+
 </form>
-
-
-
-<div class="card">
-    <p-galleria 
-        [value]="images" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }" 
-        [numVisible]="5">
-            <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" style="width: 100%;" />
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-nogutter justify-content-center">
-                    <img [src]="item.thumbnailImageSrc" />
-                </div>
-            </ng-template>
-    </p-galleria>
-</div>

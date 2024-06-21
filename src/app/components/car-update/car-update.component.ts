@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CarService } from '../../services/car.service';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from '../../models/car';
@@ -11,6 +11,9 @@ import { CarDetailDto } from '../../models/carDetailDto';
 import { CarDetailWithImagesDto } from '../../models/carDetailWithImagesDto';
 import { ToastrService } from 'ngx-toastr';
 import { CarImageService } from '../../services/car-image.service';
+import { CarImage } from '../../models/carImage';
+import { UploadEvent } from 'primeng/fileupload';
+import { response } from 'express';
 
 @Component({
   selector: 'app-car-update',
@@ -20,13 +23,14 @@ import { CarImageService } from '../../services/car-image.service';
 export class CarUpdateComponent implements OnInit {
 
   car: Car
-  carDetail: CarDetailWithImagesDto
+  carDetail: CarDetailWithImagesDto = { carId: 0, brand: { brandId: 0, brandName: "" }, color: { colorId: 0, colorName: "" }, dailyPrice: 0, images: [], description: "", modelYear: 0 }
   carUpdateFormGroup: FormGroup
   brands: Brand[] = []
   colors: Color[] = []
-
+  selectedFile: File;
   images: any[] | undefined;
-    
+
+
   responsiveOptions: any[] | undefined;
 
 
@@ -35,9 +39,10 @@ export class CarUpdateComponent implements OnInit {
     private colorService: ColorService,
     private brandService: BrandService,
     private formBuilder: FormBuilder,
-    private toastrService:ToastrService,
-    private carImageService:CarImageService
-  ) {}
+    private toastrService: ToastrService,
+    private carImageService: CarImageService,
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.initFormGroup()
@@ -51,18 +56,18 @@ export class CarUpdateComponent implements OnInit {
     this.getColors()
     this.responsiveOptions = [
       {
-          breakpoint: '1024px',
-          numVisible: 5
+        breakpoint: '1024px',
+        numVisible: 5
       },
       {
-          breakpoint: '768px',
-          numVisible: 3
+        breakpoint: '768px',
+        numVisible: 3
       },
       {
-          breakpoint: '560px',
-          numVisible: 1
+        breakpoint: '560px',
+        numVisible: 1
       }
-  ];
+    ];
   }
 
   initFormGroup() {
@@ -109,13 +114,12 @@ export class CarUpdateComponent implements OnInit {
     })
   }
 
-  getCarImages(carId:number){
-    this.carImageService.getImagesByCarId(carId).subscribe(response=>{
-      const images=this.carUpdateFormGroup.get("images")
-      if(images){
-      images.setValue(response.data)
-      console.log("veriler eklendi")
-      console.log(response.data)
+  getCarImages(carId: number) {
+    this.carImageService.getImagesByCarId(carId).subscribe(response => {
+      const images = this.carUpdateFormGroup.get("images")
+      if (images) {
+        images.setValue(response.data)
+        console.log(response.data)
       }
     })
   }
@@ -129,21 +133,89 @@ export class CarUpdateComponent implements OnInit {
         dailyPrice: this.carUpdateFormGroup.get("dailyPrice")?.value,
         description: this.carUpdateFormGroup.get("description")?.value,
         modelYear: this.carUpdateFormGroup.get("modelYear")?.value
-      }).subscribe(response=>{
+      }).subscribe(response => {
         this.toastrService.success(response.message)
-      },responseError=>{
-        if(responseError.error.Errors.length>0){
+      }, responseError => {
+        if (responseError.error.Errors.length > 0) {
           for (let i = 0; i < responseError.error.Errors.length; i++) {
-            this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Dikkat")            
+            this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Dikkat")
           }
         }
       })
-      
+
     }
-    else{
-      this.toastrService.error("Eksik bilgileri doldurunuz","Dikkat")
+    else {
+      this.toastrService.error("Eksik bilgileri doldurunuz", "Dikkat")
     }
-        //this.carService.updateCar(this.carDetail)
+    //this.carService.updateCar(this.carDetail)
   }
 
+  addImage(event: any) {
+    let carImage:CarImage={carId:this.carDetail.carId,date:new Date(),imagePath:"",id:0}
+    for (let i = 0; i < event.currentFiles.length; i++) {
+
+      this.carImageService.addImage(event.currentFiles[i],carImage).subscribe(response=>{
+        if(response.success){
+          this.toastrService.success(response.message,"Başarılı")
+          console.log(response)
+          this.carImageService.getImagesByCarId(this.carDetail.carId).subscribe(response=>{
+            this.carDetail.images=response.data
+          })
+        }else{
+          console.log(response)
+        }
+      })
+    }
+    this.resetFileInput(event)
+  }
+
+  updateImage(event: any) {
+    this.carImageService.selectedImage$.subscribe(response=>{
+      this.carImageService.updateImage(event.currentFiles[0],response).subscribe(response=>{
+        this.toastrService.success(response.message,"Başarılı")
+        this.carImageService.getImagesByCarId(this.carDetail.carId).subscribe(response=>{
+          this.carDetail.images=response.data
+        })
+      })
+    })
+
+    /*
+    let carImage:CarImage={carId:0,date:new Date(),id:0,imagePath:""}
+    this.carImageService.selectedImage$.subscribe(image=>{
+      carImage=image
+    })
+    console.log("burası image")
+    console.log(carImage)
+    this.carImageService.updateImage(event.currentFiles[0],carImage).subscribe(response=>{
+      if(response.success){
+        this.toastrService.success(response.message,"Başarılı")
+        this.carImageService.getImagesByCarId(this.carDetail.carId).subscribe(response=>{
+          this.carDetail.images=response.data
+        })
+      }else{
+        console.log(response)
+      }
+    })*/
+      this.resetFileInput(event)
+  }
+
+  deleteImage() {
+    this.carImageService.selectedImage$.subscribe(image => {
+      this.carImageService.deleteImage(image).subscribe(response=>{
+        this.carImageService.getImagesByCarId(this.carDetail.carId).subscribe(response=>{
+          this.carDetail.images=response.data
+        })
+        this.toastrService.success(response.message)
+      })
+    })
+  }
+
+  resetFileInput(event:any){
+    console.log("buraya girdi")
+    event.currentFiles=[]
+    event.files=[]
+    this.cdRef.detectChanges()
+    console.log(event)
+
+  }
 }

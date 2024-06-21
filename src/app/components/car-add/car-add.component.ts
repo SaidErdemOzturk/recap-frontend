@@ -33,7 +33,6 @@ export class CarAddComponent implements OnInit {
     this.colorService.getColors().subscribe(response=>{
       this.colors=response.data
     })
-    console.log(this.brands)
   }
   initFormGroup() {
     this.carAddFormGroup = this.formBuilder.group({
@@ -52,7 +51,6 @@ export class CarAddComponent implements OnInit {
         this.toastrService.success(response.message, "Başarılı")
       }, responseError => {
         if (responseError.error.Errors.length > 0) {
-          console.log(responseError.error)
           for (let i = 0; i < responseError.error.Errors.length; i++) {
             this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Doğrulama Hatası")
           }

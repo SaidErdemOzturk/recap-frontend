@@ -29,10 +29,10 @@
 
 <div class="row">
     <div class="col-sm-4 mb-3 mb-sm-0"  *ngFor="let car of carsDto">
-      <div class="card">
-        <div class="card-body">
+      <div class="card" >
+        <div class="card-body  align-items-center justify-content-center" >
           <h5 class="card-title text-center">{{car.brand.brandName}}</h5>
-          <img [src]="setImage(car.imagePath)" class="card-img-top">
+          <img [src]="setImage(car.imagePath)" class="card-img-top rounded img-fluid mx-auto d-block text-center" style="width: 15rem; height: 15rem;">
           <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
           <p class="card-text text-center">{{car.dailyPrice}}</p>
           <div class="d-grid btn btn-primary" [routerLink]="['/cars/cardetail', car.carId]" >

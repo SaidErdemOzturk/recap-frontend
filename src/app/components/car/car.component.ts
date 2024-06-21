@@ -78,14 +78,6 @@ export class CarComponent implements OnInit {
       this.carsDto=response.data;
     })
   }
-  setSelectedBrand(){
-    console.log(this.selectedBrand)
-  }
-  setSelectedColor(color:Color){
-    if(color !=null){
-      this.selectedColor=color
-    }
-  }
 
   listCars(brand:Brand,color:Color){
     this.carsDto=this.carsDto.filter(c=>c.brand.brandId==brand.brandId&&c.color.colorId==color.colorId)
