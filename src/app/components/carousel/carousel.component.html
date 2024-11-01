@@ -1,4 +1,4 @@
-<div id="carouselExampleDark" class="carousel carousel-dark slide">
+<div id="carouselExampleDark" class="carousel carousel-dark slide mb-5">
   <div class="carousel-indicators">
     <button *ngIf="carDetail.images.length == 0" type="button" data-bs-target="#carouselExampleDark"
       data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -18,7 +18,7 @@
   <div class="carousel-inner">
     <div *ngFor="let image of carDetail.images; let i = index" [ngClass]="setCarouselItemActive(i)"
       data-bs-interval="10000" >
-      <img [src]="setImage(image)" class="d-block mx-auto d-block text-center" style="width: 25rem; height: 25rem;"/>
+      <img [src]="setImage(image)" class="img-fluid mx-auto d-block text-center rounded"/>
       <div class="carousel-caption d-none d-md-block"></div>
     </div>
   </div>

@@ -54,20 +54,6 @@ export class CarUpdateComponent implements OnInit {
     })
     this.getBrands()
     this.getColors()
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 5
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 3
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1
-      }
-    ];
   }
 
   initFormGroup() {
@@ -184,8 +170,6 @@ export class CarUpdateComponent implements OnInit {
     this.carImageService.selectedImage$.subscribe(image=>{
       carImage=image
     })
-    console.log("burası image")
-    console.log(carImage)
     this.carImageService.updateImage(event.currentFiles[0],carImage).subscribe(response=>{
       if(response.success){
         this.toastrService.success(response.message,"Başarılı")
@@ -193,7 +177,6 @@ export class CarUpdateComponent implements OnInit {
           this.carDetail.images=response.data
         })
       }else{
-        console.log(response)
       }
     })*/
       this.resetFileInput(event)
@@ -211,11 +194,8 @@ export class CarUpdateComponent implements OnInit {
   }
 
   resetFileInput(event:any){
-    console.log("buraya girdi")
     event.currentFiles=[]
     event.files=[]
     this.cdRef.detectChanges()
-    console.log(event)
-
   }
 }

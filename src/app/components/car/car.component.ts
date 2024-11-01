@@ -81,6 +81,5 @@ export class CarComponent implements OnInit {
 
   listCars(brand:Brand,color:Color){
     this.carsDto=this.carsDto.filter(c=>c.brand.brandId==brand.brandId&&c.color.colorId==color.colorId)
-    console.log(this.carsDto)
   }
 }

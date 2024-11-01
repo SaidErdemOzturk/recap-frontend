@@ -10,7 +10,7 @@
 
 <ul class="list-group">
     <li class="list-group-item list-group-item-primary" (click)="setDefaultBrandItems()" routerLink="">Brands</li>
-  <li (click)="setCurrentBrand(brand)" *ngFor="let brand of brands | brandPipe:filterText" 
+  <li (click)="setCurrentBrand(brand)" *ngFor="let brand of brands" 
   routerLink="/cars/brand/{{brand.brandId}}"
   [class]="getCurrentBrandClass(brand)">
     {{ brand.brandName }}

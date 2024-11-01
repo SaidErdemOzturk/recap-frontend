@@ -78,9 +78,6 @@ export class RentalComponent implements OnInit {
     this.minReturnDate = new Date(date)
   }
 
-  show() {
-    console.log("buraya girdi");
-  }
 
   payRental() {
     this.creditCart.cartNumber = this.cartNumber
@@ -94,7 +91,6 @@ export class RentalComponent implements OnInit {
       }
     }, responseError => {
       console.log(responseError.error)
-
       if(responseError.error.Errors.length>0){
         for (let i = 0; i < responseError.error.Errors.length; i++) {
         this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Doğrulama Hatası")

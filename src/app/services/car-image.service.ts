@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
 import { CarImage } from '../models/carImage';
@@ -9,7 +9,7 @@ import { ResponseModel } from '../models/responseModel';
 @Injectable({
   providedIn: 'root'
 })
-export class CarImageService {
+export class CarImageService   {
   private selectedImageSource = new BehaviorSubject<CarImage>({carId:0,date:new Date(),id:0,imagePath:""});
   selectedImage$ = this.selectedImageSource.asObservable();
   imageSelector:CarImage
@@ -49,6 +49,7 @@ export class CarImageService {
     return this.httpClient.post<ResponseModel>(newUrl,formData)
   }
   selectImage(image: CarImage) {
+    console.log(image)
     this.imageSelector=image
     this.selectedImageSource.next(image);
   }

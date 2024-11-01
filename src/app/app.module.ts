@@ -29,6 +29,7 @@ import { ColorAddComponent } from './components/color-add/color-add.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { CarUpdateComponent } from './components/car-update/car-update.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     CarAddComponent,
     CarUpdateComponent,
     CarouselComponent,
+    LoginComponent,
 
   ],
   imports: [
