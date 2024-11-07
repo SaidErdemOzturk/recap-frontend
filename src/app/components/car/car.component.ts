@@ -7,6 +7,10 @@ import { Color } from '../../models/color';
 import { ColorService } from '../../services/color.service';
 import { BrandService } from '../../services/brand.service';
 import { CarDetailDto } from '../../models/carDetailDto';
+import { AuthService } from '../../services/auth.service';
+import { OperationClaim } from '../../models/userClaims';
+import { OPERATION_CLAIMS } from '../../constants/OperationClaims';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-car',
@@ -17,17 +21,22 @@ export class CarComponent implements OnInit {
   defaultImagePath="assets/images/default.png"
   localhostImagePath="http://localhost:5197/Uploads/Images/";
   carsDto:CarDetailDto[]=[]
+  allCars:CarDetailDto[]=[]
   brands:Brand[]=[]
   colors:Color[]=[]
   selectedBrand:Brand={brandName:"",brandId:0}
   selectedColor:Color={colorName:"",colorId:0}
+  operationClaims: OperationClaim[]|null=[]
 
   constructor(private carService:CarService,
     private activatedRoute:ActivatedRoute,
     private colorService:ColorService,
-    private brandService:BrandService
+    private brandService:BrandService,
+    private authService:AuthService,
+    private userService:UserService
   ){}
   ngOnInit(): void {
+    
     this.activatedRoute.params.subscribe(params=>{
       if(params["brandId"]){
         this.getCarsByBrand(params["brandId"])
@@ -42,6 +51,10 @@ export class CarComponent implements OnInit {
     this.getBrands();
   }
 
+  checkClaims(){
+    return this.userService.checkClaims(OPERATION_CLAIMS.ADMIN)
+  }
+
   setImage(imagePath:string){
     if(imagePath){
       return this.localhostImagePath+imagePath
@@ -53,6 +66,7 @@ export class CarComponent implements OnInit {
 
   getCars(){
     this.carService.getCarsDto().subscribe(response=>{
+      this.allCars=response.data
       this.carsDto=response.data
     })
   }
@@ -80,6 +94,7 @@ export class CarComponent implements OnInit {
   }
 
   listCars(brand:Brand,color:Color){
+    this.carsDto=this.allCars
     this.carsDto=this.carsDto.filter(c=>c.brand.brandId==brand.brandId&&c.color.colorId==color.colorId)
   }
 }

@@ -45,7 +45,7 @@
                      (onSelect)="addImage($event)"  [auto]="true" (onInput)="resetFileInput($event)"/>
                 <p-fileUpload mode="basic" chooseIcon="pi pi-pencil" accept="image/*" maxFileSize="1000000"
                     (onSelect)="updateImage($event)" [auto]="true"/>
-                <p-button icon="pi pi-times" severity="danger" (click)="deleteImage()"></p-button>
+                <p-button *ngIf="carDetail.images.length != 0" icon="pi pi-times" severity="danger" (click)="deleteImage()"></p-button>
             </div>
         </div>
     </div>

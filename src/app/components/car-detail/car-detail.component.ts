@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RentalService } from '../../services/rental.service';
 import { Rental } from '../../models/rental';
 import { CarDetailWithImagesDto } from '../../models/carDetailWithImagesDto';
+import { OPERATION_CLAIMS } from '../../constants/OperationClaims';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-car-detail',
@@ -20,6 +22,7 @@ export class CarDetailComponent implements OnInit {
   constructor(private carDetailService:CarDetailService,
     private activatedRoute:ActivatedRoute,
     private rentalService:RentalService,
+    private userService:UserService
   ){}
 
   ngOnInit(): void {
@@ -28,6 +31,10 @@ export class CarDetailComponent implements OnInit {
         this.getCarDetail(params["carId"])
       }
     })
+  }
+
+  checkClaims(){
+    return this.userService.checkClaims(OPERATION_CLAIMS.ADMIN)
   }
 
   getCarDetail(carId:number){

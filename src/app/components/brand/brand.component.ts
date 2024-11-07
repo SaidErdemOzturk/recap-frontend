@@ -1,21 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Brand } from '../../models/brand';
 import { BrandService } from '../../services/brand.service';
+import { OperationClaim } from '../../models/userClaims';
+import { OPERATION_CLAIMS } from '../../constants/OperationClaims';
+import { UserService } from '../../services/user.service';
+
 
 @Component({
   selector: 'app-brand',
   templateUrl: './brand.component.html',
   styleUrl: './brand.component.css'
 })
+
+
 export class BrandComponent implements OnInit {
 
   currentBrand:Brand ={brandId:0,brandName:""}
   brands:Brand[] = []
   filterText:string=""
+  operationClaims: OperationClaim[]|null=[]
 
-  constructor(private brandService:BrandService) {  }
+  
+
+  constructor(private brandService:BrandService,
+    private userService:UserService
+  ) {  }
   ngOnInit(): void {
     this.getBrands();
+  }
+
+  checkClaims(){
+    return this.userService.checkClaims(OPERATION_CLAIMS.ADMIN)
   }
 
 

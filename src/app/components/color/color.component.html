@@ -1,11 +1,11 @@
-<div class="row">
-  <div class="mt-3 mb-3 col-md-9">
-    <label for="filterText" class="form-label">Renk Ara</label>
-    <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText">
+<label for="filterText" class="form-label mt-5">Renk Ara</label>
+<div class="d-flex mt-2 mb-3 justify-content-around">
+  <div class="">
+      <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText">
+    </div>
+    <div class="btn btn-primary " *ngIf="checkClaims()" routerLink="color/add">+</div>
   </div>
-  <div class="btn btn-primary col-md-2 mt-5 mb-3" routerLink="color/add">+</div>
 
-</div>
 
   <ul class="list-group">
     <li class="list-group-item list-group-item-primary" (click)="setDefaultColorItems()" routerLink="">Colors</li>

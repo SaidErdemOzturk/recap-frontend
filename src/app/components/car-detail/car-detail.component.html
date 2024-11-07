@@ -22,7 +22,7 @@
   <div class="mx-auto">
       <button type="button" class="btn btn-primary btn-lg" routerLink="rental/{{carDetail.carId}}">Aracı Kirala</button>
   </div>
-  <div>
+  <div *ngIf="checkClaims()">
       <button type="button" class="btn btn-secondary" routerLink="update/{{carDetail.carId}}">:</button>
   </div>
 </div>
