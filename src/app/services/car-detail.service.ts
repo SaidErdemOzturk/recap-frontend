@@ -13,9 +13,11 @@ export class CarDetailService {
 
   constructor(private httpClient:HttpClient) {
    }
+  apiTopic="Cars/"
+
 
    getCarDetail(carId:number):Observable<SingleResponseModel<CarDetailWithImagesDto>>{
-    let newPath=APIURL+"getcarwithdetailbycarid?id="+carId
+    let newPath=APIURL+this.apiTopic+"getcarwithdetailbycarid?id="+carId
     return this.httpClient.get<SingleResponseModel<CarDetailWithImagesDto>>(newPath)
    }
 }

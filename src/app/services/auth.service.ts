@@ -14,8 +14,10 @@ export class AuthService {
 
   constructor(private httpClient:HttpClient,private userService:UserService) { }
 
+  apiTopic="Auth/"
+
   login(loginModel:LoginModel):Observable<SingleResponseModel<TokenModel>>{
-    return this.httpClient.post<SingleResponseModel<TokenModel>>(APIURL+"login",loginModel)
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(APIURL+this.apiTopic+"login",loginModel)
   }
 
   

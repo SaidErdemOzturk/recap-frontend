@@ -14,22 +14,23 @@ export class CarImageService   {
   private selectedImageSource = new BehaviorSubject<CarImage>({carId:0,date:new Date(),id:0,imagePath:""});
   selectedImage$ = this.selectedImageSource.asObservable();
   imageSelector:CarImage
+  apiTopic="CarImages"
   constructor(private httpClient:HttpClient) { }
 
   getAll():Observable<ListResponseModel<CarImage>>{
-    let newUrl=APIURL+"getall"
+    let newUrl=APIURL+this.apiTopic+"getall"
     return this.httpClient.get<ListResponseModel<CarImage>>(newUrl)
   }
   getById(imageId:number):Observable<SingleResponseModel<CarImage>>{
-    let newUrl=APIURL+"getbyid?id="+imageId
+    let newUrl=APIURL+this.apiTopic+"getbyid?id="+imageId
     return this.httpClient.get<SingleResponseModel<CarImage>>(newUrl)
   }
   getImagesByCarId(carId:number):Observable<ListResponseModel<CarImage>>{
-    let newUrl=APIURL+"getimagesbycarid?carId="+carId
+    let newUrl=APIURL+this.apiTopic+"getimagesbycarid?carId="+carId
     return this.httpClient.get<ListResponseModel<CarImage>>(newUrl)
   }
   deleteImage(carImage:CarImage):Observable<ResponseModel>{
-    let newUrl=APIURL+"delete"
+    let newUrl=APIURL+this.apiTopic+"delete"
     return this.httpClient.post<ResponseModel>(newUrl,carImage)
   }
   addImage(formFile:File,carImage:CarImage):Observable<ResponseModel>{
@@ -37,7 +38,7 @@ export class CarImageService   {
     formData.append('formFile', formFile, formFile.name);
     formData.append('carImage', JSON.stringify(carImage));
     console.log(formData)
-    let newUrl=APIURL+"add"
+    let newUrl=APIURL+this.apiTopic+"add"
     return this.httpClient.post<ResponseModel>(newUrl,formData)
   }
   updateImage(formFile:File,carImage:CarImage):Observable<ResponseModel>{
@@ -45,7 +46,7 @@ export class CarImageService   {
     formData.append('formFile', formFile, formFile.name);
     formData.append('carImage', JSON.stringify(carImage));
     console.log(formData)
-    let newUrl=APIURL+"update"
+    let newUrl=APIURL+this.apiTopic+"update"
     return this.httpClient.post<ResponseModel>(newUrl,formData)
   }
   selectImage(image: CarImage) {

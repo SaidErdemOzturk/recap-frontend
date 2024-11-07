@@ -11,9 +11,10 @@ import { APIURL } from '../constants/ApiServer';
 })
 export class BrandService {
   constructor(private httpClient:HttpClient) { }
+  apiTopic="Brand/"
 
   getBrands() :Observable<ListResponseModel<Brand>> {
-    let newUrl=APIURL+"getall"
+    let newUrl=APIURL+this.apiTopic+"getall"
     return this.httpClient.get<ListResponseModel<Brand>>(newUrl);
   }
 

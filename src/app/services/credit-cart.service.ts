@@ -12,9 +12,11 @@ export class CreditCartService {
 
 
   constructor(private httpClient:HttpClient) { }
+  apiTopic="CreditCart/"
+
 
   payWithCreditCart(creditCart:CreditCart):Observable<ResponseModel>{
-    let newUrl=APIURL+"paywithcreditcart"
+    let newUrl=APIURL+this.apiTopic+"paywithcreditcart"
     return this.httpClient.post<ResponseModel>(newUrl,creditCart)
   }
 }

@@ -12,13 +12,14 @@ import { APIURL } from '../constants/ApiServer';
 export class ColorService {
 
   constructor(private httpClient:HttpClient) { }
+  apiTopic="Colors/"
 
   getColors() : Observable<ListResponseModel<Color>>{
-    let newUrl=APIURL+"getall"
+    let newUrl=APIURL+this.apiTopic+"getall"
     return this.httpClient.get<ListResponseModel<Color>>(newUrl);
   }
   addColor(color:Color):Observable<ResponseModel>{
-    let newUrl=APIURL+"add"
+    let newUrl=APIURL+this.apiTopic+"add"
     return this.httpClient.post<ResponseModel>(newUrl,color)
   }
 }

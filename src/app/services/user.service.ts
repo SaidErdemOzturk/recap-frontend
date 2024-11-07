@@ -16,6 +16,8 @@ export class UserService {
   private userSource = new BehaviorSubject<{ firstName: string, lastName: string }>({ firstName: '', lastName: '' }); 
   operationClaims: OperationClaim[]|null=[]
   currentUser = this.userSource.asObservable();
+  apiTopic="Users/"
+
   constructor(private httpClient:HttpClient) {
    }
 
@@ -38,12 +40,12 @@ export class UserService {
   }
 
   getUserDtoByEmail(email:string):Observable<SingleResponseModel<UserDto>>{
-    return this.httpClient.get<SingleResponseModel<UserDto>>(APIURL+"getuserdtobyemail?email="+email)
+    return this.httpClient.get<SingleResponseModel<UserDto>>(APIURL+this.apiTopic+"getuserdtobyemail?email="+email)
   }
 
   
   getClaims(id:number):Observable<ListResponseModel<OperationClaim>>{
-    return this.httpClient.get<ListResponseModel<OperationClaim>>(APIURL+"getclaims?id="+id)
+    return this.httpClient.get<ListResponseModel<OperationClaim>>(APIURL+this.apiTopic+"getclaims?id="+id)
   }
 
 

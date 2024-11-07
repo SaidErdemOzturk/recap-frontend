@@ -15,45 +15,46 @@ import { APIURL } from '../constants/ApiServer';
 export class CarService {
 
   constructor(private httpClient: HttpClient) { }
+  apiTopic="Cars/"
 
 
   getCars(): Observable<ListResponseModel<Car>> {
-    let newPath = APIURL + "getcarswithdetail";
+    let newPath = APIURL+this.apiTopic + "getcarswithdetail";
     return this.httpClient.get<ListResponseModel<Car>>(newPath);
   }
 
   getCarsByBrand(brandId: number): Observable<ListResponseModel<CarDetailDto>> {
-    let newPath = APIURL + "getcarswithdetailbybrandid?id=" + brandId;
+    let newPath = APIURL+this.apiTopic + "getcarswithdetailbybrandid?id=" + brandId;
     return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath);
   }
 
   getCarsByColor(colorId: number): Observable<ListResponseModel<CarDetailDto>> {
-    let newPath = APIURL + "getcarswithdetailbycolorid?id=" + colorId;
+    let newPath = APIURL+this.apiTopic + "getcarswithdetailbycolorid?id=" + colorId;
     return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath);
   }
 
   getCarDtoById(carId: number): Observable<SingleResponseModel<CarDetailWithImagesDto>> {
-    let newPath = APIURL + "getcarwithdetailbycarid?id=" + carId
+    let newPath = APIURL+this.apiTopic + "getcarwithdetailbycarid?id=" + carId
     return this.httpClient.get<SingleResponseModel<CarDetailWithImagesDto>>(newPath)
   }
 
   getCarsDto(): Observable<ListResponseModel<CarDetailDto>> {
-    let newPath = APIURL + "getcarswithdetail"
+    let newPath = APIURL+this.apiTopic + "getcarswithdetail"
     return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath)
   }
 
   getCarById(carId: number): Observable<SingleResponseModel<Car>> {
-    let newPath = APIURL + "getcarbyid?id=" + carId
+    let newPath = APIURL+this.apiTopic + "getcarbyid?id=" + carId
     return this.httpClient.get<SingleResponseModel<Car>>(newPath)
   }
 
   updateCar(car: Car): Observable<ResponseModel> {
-    let newPath = APIURL + "update"
+    let newPath = APIURL+this.apiTopic + "update"
     return this.httpClient.post<ResponseModel>(newPath, car)
   }
 
   addCar(car: Car): Observable<ResponseModel> {
-    let newPath = APIURL + "add"
+    let newPath = APIURL+this.apiTopic + "add"
     return this.httpClient.post<ResponseModel>(newPath, car)
   }
 }

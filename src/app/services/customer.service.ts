@@ -11,8 +11,10 @@ import { APIURL } from '../constants/ApiServer';
 export class CustomerService {
 
   constructor(private httpClient:HttpClient) { }
+  apiTopic="Customers/"
+
 
   getCustomersDto() : Observable<ListResponseModel<CustomerDto>>{
-    return this.httpClient.get<ListResponseModel<CustomerDto>>(APIURL)
+    return this.httpClient.get<ListResponseModel<CustomerDto>>(APIURL+this.apiTopic)
   }
 }
