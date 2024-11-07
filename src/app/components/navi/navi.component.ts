@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserDto } from '../../models/userDto';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-navi',
@@ -19,7 +21,7 @@ export class NaviComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private userService: UserService,
-    private cdr: ChangeDetectorRef // ChangeDetectorRef'i ekliyoruz
+    private router:Router
   ) {}
 
   isAuthenticated() {
@@ -33,6 +35,7 @@ export class NaviComponent implements OnInit {
   }
   logout(){
     this.userService.logout()
+    this.router.navigate(['/'])
   }
 
   ngOnInit(): void {
