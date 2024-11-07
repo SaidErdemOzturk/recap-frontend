@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
 import { OperationClaim } from '../models/userClaims';
 import { OPERATION_CLAIMS } from '../constants/OperationClaims';
+import { APIURL } from '../constants/ApiServer';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,6 @@ export class UserService {
   currentUser = this.userSource.asObservable();
   constructor(private httpClient:HttpClient) {
    }
-  apiUrl="http://localhost:5197/api/Users/"
 
   logout(){
     localStorage.clear()
@@ -38,12 +38,12 @@ export class UserService {
   }
 
   getUserDtoByEmail(email:string):Observable<SingleResponseModel<UserDto>>{
-    return this.httpClient.get<SingleResponseModel<UserDto>>(this.apiUrl+"getuserdtobyemail?email="+email)
+    return this.httpClient.get<SingleResponseModel<UserDto>>(APIURL+"getuserdtobyemail?email="+email)
   }
 
   
   getClaims(id:number):Observable<ListResponseModel<OperationClaim>>{
-    return this.httpClient.get<ListResponseModel<OperationClaim>>(this.apiUrl+"getclaims?id="+id)
+    return this.httpClient.get<ListResponseModel<OperationClaim>>(APIURL+"getclaims?id="+id)
   }
 
 

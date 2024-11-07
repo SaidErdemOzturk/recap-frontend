@@ -5,26 +5,26 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { RentalDto } from '../models/rentalDto';
 import { Rental } from '../models/rental';
 import { ResponseModel } from '../models/responseModel';
+import { APIURL } from '../constants/ApiServer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentalService {
 
-  apiUrl="http://localhost:5197/api/Rentals/"
 
   constructor(private httpClient:HttpClient) { }
 
   getRentalsDto():Observable<ListResponseModel<RentalDto>>{
-    let newUrl=this.apiUrl+"getrentalswithdto"
-    return this.httpClient.get<ListResponseModel<RentalDto>>(this.apiUrl);
+    let newUrl=APIURL+"getrentalswithdto"
+    return this.httpClient.get<ListResponseModel<RentalDto>>(APIURL);
   }
   getRentalsByCarId(carId:number):Observable<ListResponseModel<Rental>>{
-    let newUrl=this.apiUrl+"getrentalsbycarid?carId="+carId
+    let newUrl=APIURL+"getrentalsbycarid?carId="+carId
     return this.httpClient.get<ListResponseModel<Rental>>(newUrl)
   }
   rentalCar(rental:Rental):Observable<ResponseModel>{
-    let newUrl=this.apiUrl+"add"
+    let newUrl=APIURL+"add"
     return this.httpClient.post<ResponseModel>(newUrl,rental)
   }
 }

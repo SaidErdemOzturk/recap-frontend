@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { TokenModel } from '../models/tokenModel';
 import { UserService } from './user.service';
+import { APIURL } from '../constants/ApiServer';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,9 @@ import { UserService } from './user.service';
 export class AuthService {
 
   constructor(private httpClient:HttpClient,private userService:UserService) { }
-  apiUrl="http://localhost:5197/api/Auth/"
 
   login(loginModel:LoginModel):Observable<SingleResponseModel<TokenModel>>{
-    return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl+"login",loginModel)
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(APIURL+"login",loginModel)
   }
 
   
